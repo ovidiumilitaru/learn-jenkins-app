@@ -56,12 +56,14 @@ pipeline {
             }
             steps {
                 sh '''
+                    npm cache clean
                     npm install netlify-cli
                     node_modules/.bin/netlify --version
                     echo "Deploy to production site ID = $NETLIFY_SITE_ID"
                     node_modules/.bin/netlify status
-                    node_modules/.bin/netlify deploy --dir=build --prod
+                    
                 '''
+                // sh 'node_modules/.bin/netlify deploy --dir=build --prod'
             }
         }
     }
