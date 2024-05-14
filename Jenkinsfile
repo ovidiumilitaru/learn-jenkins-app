@@ -16,13 +16,11 @@ pipeline {
             }
             steps {
                 sh '''
-                    echo "build with Docker start"
                     ls -la
                     node --version
                     npm --version
                     npm ci
                     npm run build
-                    echo "build with Docker END"
                     ls -la
                 '''
             }
@@ -39,7 +37,7 @@ pipeline {
                     }
                     steps {
                         sh '''
-                            echo "Test stage"
+                            echo "Unit Test Local"
                             test -f build/index.html
                             npm test
                         '''
@@ -59,7 +57,7 @@ pipeline {
                     }
                     steps {
                         sh '''
-                            echo "E2E Test stage"
+                            echo "E2E Test Local"
                             npm install serve
                             node_modules/.bin/serve -s build &
                             sleep 10
@@ -105,7 +103,7 @@ pipeline {
             }
             steps {
                 sh '''
-                    echo "Prod E2E Test"
+                    echo "E2E Test Production"
                     npx playwright test --reporter=html
                 '''
             }
