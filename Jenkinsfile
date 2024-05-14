@@ -26,25 +26,23 @@ pipeline {
             }
         }
 
-        stage('Run tests in parallel') {
-            stage('Unit Test') {
-                agent {
-                    docker {
-                        image 'node:18-alpine'
-                        reuseNode true
-                    }
+        stage('Run Unit Test') {
+            agent {
+                docker {
+                    image 'node:18-alpine'
+                    reuseNode true
                 }
-                steps {
-                    sh '''
-                        echo "Unit Test Local"
-                        test -f build/index.html
-                        npm test
-                    '''
-                }
-                post {
-                    always {
-                        junit 'jest-test-results/junit.xml'
-                    }
+            }
+            steps {
+                sh '''
+                    echo "Unit Test Local"
+                    test -f build/index.html
+                    npm test
+                '''
+            }
+            post {
+                always {
+                    junit 'jest-test-results/junit.xml'
                 }
             }
         }
