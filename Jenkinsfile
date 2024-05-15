@@ -25,26 +25,26 @@ pipeline {
             }
         }
 
-        // stage('Run Unit Test') {
-        //     agent {
-        //         docker {
-        //             image 'node:18-alpine'
-        //             reuseNode true
-        //         }
-        //     }
-        //     steps {
-        //         sh '''
-        //             echo "Unit Test Local"
-        //             test -f build/index.html
-        //             npm test
-        //         '''
-        //     }
-        //     post {
-        //         always {
-        //             junit 'jest-test-results/junit.xml'
-        //         }
-        //     }
-        // }
+        stage('Run Unit Test') {
+            agent {
+                docker {
+                    image 'node:18-alpine'
+                    reuseNode true
+                }
+            }
+            steps {
+                sh '''
+                    echo "Unit Test Local"
+                    test -f build/index.html
+                    npm test
+                '''
+            }
+            post {
+                always {
+                    junit 'jest-test-results/junit.xml'
+                }
+            }
+        }
 
         // stage('Deploy production') {
         //     agent {
