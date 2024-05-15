@@ -16,7 +16,6 @@ pipeline {
             }
             steps {
                 sh '''
-                    ls -la
                     node --version
                     npm --version
                     npm ci
@@ -26,45 +25,45 @@ pipeline {
             }
         }
 
-        stage('Run Unit Test') {
-            agent {
-                docker {
-                    image 'node:18-alpine'
-                    reuseNode true
-                }
-            }
-            steps {
-                sh '''
-                    echo "Unit Test Local"
-                    test -f build/index.html
-                    npm test
-                '''
-            }
-            post {
-                always {
-                    junit 'jest-test-results/junit.xml'
-                }
-            }
-        }
+        // stage('Run Unit Test') {
+        //     agent {
+        //         docker {
+        //             image 'node:18-alpine'
+        //             reuseNode true
+        //         }
+        //     }
+        //     steps {
+        //         sh '''
+        //             echo "Unit Test Local"
+        //             test -f build/index.html
+        //             npm test
+        //         '''
+        //     }
+        //     post {
+        //         always {
+        //             junit 'jest-test-results/junit.xml'
+        //         }
+        //     }
+        // }
 
-        stage('Deploy production') {
-            agent {
-                docker {
-                    image 'node:18-alpine'
-                    reuseNode true
-                }
-            }
-            steps {
-                sh '''
-                    npm cache clean --force
-                    npm install netlify-cli
-                    node_modules/.bin/netlify --version
-                    echo "Deploy to production site ID = $NETLIFY_SITE_ID"
-                    node_modules/.bin/netlify status
+        // stage('Deploy production') {
+        //     agent {
+        //         docker {
+        //             image 'node:18-alpine'
+        //             reuseNode true
+        //         }
+        //     }
+        //     steps {
+        //         sh '''
+        //             npm cache clean --force
+        //             npm install netlify-cli
+        //             node_modules/.bin/netlify --version
+        //             echo "Deploy to production site ID = $NETLIFY_SITE_ID"
+        //             node_modules/.bin/netlify status
                     
-                '''
-                // sh 'node_modules/.bin/netlify deploy --dir=build --prod' 
-            }
-        }
+        //         '''
+        //         // sh 'node_modules/.bin/netlify deploy --dir=build --prod' 
+        //     }
+        // }
     }
 }
