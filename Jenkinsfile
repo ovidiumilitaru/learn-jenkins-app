@@ -18,7 +18,7 @@ pipeline {
                 sh '''
                     node --version
                     npm --version
-                    npm ci
+                    npm ci clean-install
                     npm run build
                     ls -la
                 '''
