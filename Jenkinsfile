@@ -61,7 +61,7 @@ pipeline {
                     node_modules/.bin/netlify status
                     
                 '''
-                // sh 'node_modules/.bin/netlify deploy --dir=build --prod' 
+                sh 'node_modules/.bin/netlify deploy --dir=build --prod' 
             }
         }
     }
