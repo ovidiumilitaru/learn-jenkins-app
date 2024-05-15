@@ -56,7 +56,7 @@ pipeline {
             }
             steps {
                 sh '''
-                    npm cache clean
+                    npm cache clean --force
                     npm install netlify-cli
                     node_modules/.bin/netlify --version
                     echo "Deploy to production site ID = $NETLIFY_SITE_ID"
